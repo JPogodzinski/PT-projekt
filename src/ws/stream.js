@@ -1,6 +1,6 @@
 const stream = (socket) =>{
     socket.on('subscribe',(data) => {
-        //dolaczanie do pokoju
+        //entering the room
         socket.join(data.room);
         socket.join(data.socketId);
     } );
