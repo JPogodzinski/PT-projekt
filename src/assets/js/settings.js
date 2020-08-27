@@ -9,17 +9,46 @@ export default {
         return {
             iceServers: [
                 {
-                    urls: ["stun:eu-turn5.xirsys.com"]
-                },
-                {
-                    username: "d2Zpk9vbXIgQm8eew5QUkBcVdsdG36SZe61s6X_pQwaHJZE17ISi3nJuIM_Myp0kAAAAAF9FW7Fsb2JieTI1MA==",
-                    credential: "4fa399eda-e701-11ea-be26-0242ac150003",
+                    urls: [ "stun:eu-turn6.xirsys.com" ]
+                }, {
+                    username: "ZSzSvL8QJ_4SZbzvuPQD-jMR-qqK1QTW5Puq7j2LBToDlgHj1AyoZqyrpyqt-2sfAAAAAF9FbVlsb2JieTI1MA==",
+                    credential: "5137e7b8-e70d-11ea-9252-0242ac140004",
                     urls: [
-                        "turn:eu-turn5.xirsys.com:80?transport=udp",
-                        "turn:eu-turn5.xirsys.com:3478?transport=tcp"
+                        "turn:eu-turn6.xirsys.com:80?transport=udp",
+                        "turn:eu-turn6.xirsys.com:3478?transport=udp",
+                        "turn:eu-turn6.xirsys.com:80?transport=tcp",
+                        "turn:eu-turn6.xirsys.com:3478?transport=tcp",
+                        "turns:eu-turn6.xirsys.com:443?transport=tcp",
+                        "turns:eu-turn6.xirsys.com:5349?transport=tcp"
                     ]
                 }
             ]
         };
-    }
+    },
+    getQString( url = '', keyToReturn = '' ) {
+        url = url ? url : location.href;
+        let queryStrings = decodeURIComponent( url ).split( '#', 2 )[0].split( '?', 2 )[1];
+
+        if ( queryStrings ) {
+            let splittedQStrings = queryStrings.split( '&' );
+
+            if ( splittedQStrings.length ) {
+                let queryStringObj = {};
+
+                splittedQStrings.forEach( function ( keyValuePair ) {
+                    let keyValue = keyValuePair.split( '=', 2 );
+
+                    if ( keyValue.length ) {
+                        queryStringObj[keyValue[0]] = keyValue[1];
+                    }
+                } );
+
+                return keyToReturn ? ( queryStringObj[keyToReturn] ? queryStringObj[keyToReturn] : null ) : queryStringObj;
+            }
+
+            return null;
+        }
+
+        return null;
+    },
 }
