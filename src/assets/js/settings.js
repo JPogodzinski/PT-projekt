@@ -25,6 +25,28 @@ export default {
             ]
         };
     },
+
+    toggleModal( id, show ) {
+        let el = document.getElementById( id );
+
+        if ( show ) {
+            el.style.display = 'block';
+            el.removeAttribute( 'aria-hidden' );
+        }
+
+        else {
+            el.style.display = 'none';
+            el.setAttribute( 'aria-hidden', true );
+        }
+    },
+
+    setLocalStream( stream, mirrorMode = true ) {
+        const localVidElem = document.getElementById( 'local' );
+
+        localVidElem.srcObject = stream;
+        mirrorMode ? localVidElem.classList.add( 'mirror-mode' ) : localVidElem.classList.remove( 'mirror-mode' );
+    },
+
     getQString( url = '', keyToReturn = '' ) {
         url = url ? url : location.href;
         let queryStrings = decodeURIComponent( url ).split( '#', 2 )[0].split( '?', 2 )[1];
