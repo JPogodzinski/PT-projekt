@@ -1,16 +1,25 @@
-const stream = (socket) =>{
-    socket.on('subscribe',(data) => {
-        //entering the room
-        socket.join(data.room);
-        socket.join(data.socketId);
+const stream = ( socket ) => {
+    socket.on( 'subscribe', ( data ) => {
+        //entering room
+        socket.join( data.room );
+        socket.join( data.socketId );
 
+        
         if ( socket.adapter.rooms[data.room].length > 1 ) {
             socket.to( data.room ).emit( 'new user', { socketId: data.socketId } );
         }
     } );
-};
-socket.on( 'ice candidates', ( data ) => {
-        socket.to( data.to ).emit( 'ice candidates', { candidate: data.candidate, sender: data.sender } );
+    socket.on( 'newUserStart', ( data ) => {
+        socket.to( data.to ).emit( 'newUserStart', { sender: data.sender } );
     } );
 
-module.exports=stream;
+
+    socket.on( 'sdp', ( data ) => {
+        socket.to( data.to ).emit( 'sdp', { description: data.description, sender: data.sender } );
+    } );
+    socket.on( 'ice candidates', ( data ) => {
+        socket.to( data.to ).emit( 'ice candidates', { candidate: data.candidate, sender: data.sender } );
+    } );
+};
+
+module.exports = stream;
