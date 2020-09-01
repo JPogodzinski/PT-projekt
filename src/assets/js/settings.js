@@ -47,6 +47,32 @@ export default {
         mirrorMode ? localVidElem.classList.add( 'mirror-mode' ) : localVidElem.classList.remove( 'mirror-mode' );
     },
 
+    toggleVideoBtnDisabled( disabled ) {
+        document.getElementById( 'toggle-video' ).disabled = disabled;
+    },
+
+
+    maximiseStream( e ) {
+        let elem = e.target.parentElement.previousElementSibling;
+
+        elem.requestFullscreen() || elem.mozRequestFullScreen() || elem.webkitRequestFullscreen() || elem.msRequestFullscreen();
+    },
+
+
+    singleStreamToggleMute( e ) {
+        if ( e.target.classList.contains( 'fa-microphone' ) ) {
+            e.target.parentElement.previousElementSibling.muted = true;
+            e.target.classList.add( 'fa-microphone-slash' );
+            e.target.classList.remove( 'fa-microphone' );
+        }
+
+        else {
+            e.target.parentElement.previousElementSibling.muted = false;
+            e.target.classList.add( 'fa-microphone' );
+            e.target.classList.remove( 'fa-microphone-slash' );
+        }
+    },
+
     getQString( url = '', keyToReturn = '' ) {
         url = url ? url : location.href;
         let queryStrings = decodeURIComponent( url ).split( '#', 2 )[0].split( '?', 2 )[1];
