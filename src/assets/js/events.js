@@ -18,4 +18,24 @@ window.addEventListener('load', () => {
         }
     } );
     
+    
+     //creating room after clicking a button
+    document.getElementById( 'create-room' ).addEventListener( 'click', ( e ) => {
+        e.preventDefault();
+        let roomName = document.querySelector( '#room-name' ).value;
+        if (roomName) {
+            //remove error message, if any
+            document.querySelector( '#err-msg' ).innerHTML = "";
+            let roomLink = `${ location.origin }?room=${ roomName.trim().replace( ' ', '_' ) }_${ helpers.generateRandomString() }`;
+            //show message with link to room
+            document.querySelector( '#room-created' ).innerHTML = `Pokój utworzony pomyślnie. Kliknij <a href='${ roomLink }'>tutaj</a> aby wejść do pokoju. 
+                Po wejściu do pokoju wystarczy, że prześlesz link innym osobom, aby również się połączyły.`;
+            document.querySelector( '#room-name' ).value = '';
+        }
+        else {
+            document.querySelector( '#err-msg' ).innerHTML = "Pole z nazwą pokoju nie może być puste";
+        }
+    } );
+    
+    
 } );
