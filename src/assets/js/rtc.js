@@ -1,3 +1,4 @@
+
 import h from './settings.js';
 
 window.addEventListener( 'load', () => {
@@ -21,3 +22,27 @@ window.addEventListener( 'load', () => {
         var screen = '';
         //Get user video by default
         getAndSetUserStream();
+
+
+        socket.on( 'connect', () => {
+            //set socketId
+            socketId = socket.io.engine.id;
+
+
+            socket.emit( 'subscribe', {
+                room: room,
+                socketId: socketId
+            } );
+
+
+            socket.on( 'new user', ( data ) => {
+                socket.emit( 'newUserStart', { to: data.socketId, sender: socketId } );
+                pc.push( data.socketId );
+                init( true, data.socketId );
+            } );
+
+
+            socket.on( 'chat', ( data ) => {
+                h.addChat( data, 'remote' );
+            } );
+        } );
