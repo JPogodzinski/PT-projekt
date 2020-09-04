@@ -91,5 +91,16 @@ window.addEventListener( 'load', () => {
         } );
 
 
+        function getAndSetUserStream() {
+            h.getUserFullMedia().then( ( stream ) => {
+                //save my stream
+                myStream = stream
+
+                h.setLocalStream( stream );
+            } ).catch( ( e ) => {
+                console.error( `stream error:` );
+            } )
+        }
+
         function init( createOffer, partnerName ) {
             }
