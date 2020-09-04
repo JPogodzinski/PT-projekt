@@ -42,6 +42,14 @@ window.addEventListener( 'load', () => {
             } );
 
 
+            socket.on( 'newUserStart', ( data ) => {
+                pc.push( data.sender );
+                init( false, data.sender );
+            } );
+
+
+
+
             socket.on( 'chat', ( data ) => {
                 h.addChat( data, 'remote' );
             } );
