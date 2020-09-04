@@ -141,7 +141,7 @@ window.addEventListener( 'load', () => {
             for (let p in pc) {
                 let pName = pc[p];
 
-                if ( typeof pc[pName] == object ) {
+                if ( typeof pc[pName] == 'object' ) {
                     h.replaceTrack( track, pc[pName] );
                 }
             }
