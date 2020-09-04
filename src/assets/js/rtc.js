@@ -133,11 +133,12 @@ window.addEventListener( 'load', () => {
             h.toggleVideoBtnDisabled( false );
 
             return new Promise( ( res, rej ) => {
-                screen.getTracks().length ? screen.getTracks().forEach( track > track.stop() ) : ''
+                screen.getTracks().length ? screen.getTracks().forEach( track => track.stop() ) : '';
+
                 res();
             } ).then( () => {
                 h.toggleShareIcons( false );
-                broadcastNewTracks( myStream, video );
+                broadcastNewTracks( myStream, 'video' );
             } ).catch( ( e ) => {
                 console.error( e );
             } );
