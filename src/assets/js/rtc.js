@@ -102,22 +102,35 @@ window.addEventListener( 'load', () => {
         }
 
         function init( createOffer, partnerName ) {
-            }
-
-
-
+        }
 
         function shareScreen() {
+            h.shareScreen().then( ( stream ) => {
+                h.toggleShareIcons( true );
+
+                //disable the video toggle btns while sharing screen. This is to ensure clicking on the btn does not interfere with the screen sharing
+                h.toggleVideoBtnDisabled( true );
+
+                //save my screen stream
+                screen = stream
+
+                //When the stop sharing button shown by the browser is clicked
+                screen.getVideoTracks()[0].addEventListener( 'ended', () => {
+                    stopSharingScreen();
+                } );
+            } ).catch( ( e ) => {
+                console.error( e );
+            } );
         }
 
 
 
         function stopSharingScreen() {
-        }
+            }
 
 
 
         function broadcastNewTracks( stream, type, mirrorMode = true ) {
-        }
+            }
 
 } );
