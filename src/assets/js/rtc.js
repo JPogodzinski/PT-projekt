@@ -1,4 +1,3 @@
-
 import h from './settings.js';
 
 window.addEventListener( 'load', () => {
@@ -104,3 +103,21 @@ window.addEventListener( 'load', () => {
 
         function init( createOffer, partnerName ) {
             }
+
+
+
+
+        function shareScreen() {
+        }
+
+
+
+        function stopSharingScreen() {
+        }
+
+
+
+        function broadcastNewTracks( stream, type, mirrorMode = true ) {
+        }
+
+} );
