@@ -126,6 +126,40 @@ window.addEventListener( 'load', () => {
 
 
 
+            //add
+            pc[partnerName].ontrack = ( e ) => {
+                let str = e.streams[0];
+                if ( document.getElementById( `${ partnerName }-video` ) ) {
+                    document.getElementById( `${ partnerName }-video` ).srcObject = str;
+                }
+
+                else {
+                    //video elem
+                    let newVid = document.createElement( 'video' );
+                    newVid.id = `${ partnerName }-video`;
+                    newVid.srcObject = str;
+                    newVid.autoplay = true;
+                    newVid.className = 'remote-video';
+
+                    //video controls elements
+                    let controlDiv = document.createElement( 'div' );
+                    controlDiv.className = 'remote-video-controls';
+                    controlDiv.innerHTML = `<i class="fa fa-microphone text-white pr-3 mute-remote-mic" title="Mute"></i>
+                        <i class="fa fa-expand text-white expand-remote-video" title="Expand"></i>`;
+
+                    //create a new div for card
+                    let cardDiv = document.createElement( 'div' );
+                    cardDiv.className = 'card card-sm';
+                    cardDiv.id = partnerName;
+                    cardDiv.appendChild( newVid );
+                    cardDiv.appendChild( controlDiv );
+
+                    //put div in main-section elem
+                    document.getElementById( 'videos' ).appendChild( cardDiv );
+
+                    h.adjustVideoElemSize();
+                }
+            };
 
 
 
