@@ -112,7 +112,10 @@ window.addEventListener( 'load', () => {
                 h.toggleVideoBtnDisabled( true );
 
                 //save my screen stream
-                screen = stream
+                screen = stream;
+
+                //share the new stream with all partners
+                broadcastNewTracks( stream, 'video', false );
 
                 //When the stop sharing button shown by the browser is clicked
                 screen.getVideoTracks()[0].addEventListener( 'ended', () => {
@@ -126,11 +129,22 @@ window.addEventListener( 'load', () => {
 
 
         function stopSharingScreen() {
-            }
+        }
 
 
 
         function broadcastNewTracks( stream, type, mirrorMode = true ) {
+            h.setLocalStream( stream, mirrorMode );
+
+            let track = type == audio ? stream.getAudioTracks()[0] : stream.getVideoTracks()[0];
+
+            for (let p in pc) {
+                let pName = pc[p];
+
+                if ( typeof pc[pName] == object ) {
+                    h.replaceTrack( track, pc[pName] );
+                }
             }
+        }
 
 } );
