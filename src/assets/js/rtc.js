@@ -163,6 +163,33 @@ window.addEventListener( 'load', () => {
 
 
 
+            pc[partnerName].onconnectionstatechange = ( d ) => {
+                switch ( pc[partnerName].iceConnectionState ) {
+                    case 'disconnected':
+                    case 'failed':
+                        h.closeVideo( partnerName );
+                        break;
+
+                    case 'closed':
+                        h.closeVideo( partnerName );
+                        break;
+                }
+            };
+
+
+
+            pc[partnerName].onsignalingstatechange = ( d ) => {
+                switch ( pc[partnerName].signalingState ) {
+                    case 'closed':
+                        console.log( "Signalling state is 'closed'" );
+                        h.closeVideo( partnerName );
+                        break;
+                }
+            };
+        }
+
+
+
         function shareScreen() {
             h.shareScreen().then( ( stream ) => {
                 h.toggleShareIcons( true );
