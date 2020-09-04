@@ -136,7 +136,7 @@ window.addEventListener( 'load', () => {
         function broadcastNewTracks( stream, type, mirrorMode = true ) {
             h.setLocalStream( stream, mirrorMode );
 
-            let track = type == audio ? stream.getAudioTracks()[0] : stream.getVideoTracks()[0];
+            let track = type == 'audio' ? stream.getAudioTracks()[0] : stream.getVideoTracks()[0];
 
             for (let p in pc) {
                 let pName = pc[p];
