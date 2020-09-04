@@ -119,6 +119,16 @@ window.addEventListener( 'load', () => {
 
 
 
+            //send ice candidate to partnerNames
+            pc[partnerName].onicecandidate = ( { candidate } ) => {
+                socket.emit( 'ice candidates', { candidate: candidate, to: partnerName, sender: socketId } );
+            };
+
+
+
+
+
+
         function shareScreen() {
             h.shareScreen().then( ( stream ) => {
                 h.toggleShareIcons( true );
