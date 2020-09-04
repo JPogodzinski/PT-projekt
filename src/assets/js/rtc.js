@@ -1,3 +1,5 @@
+
+
 import h from './settings.js';
 
 window.addEventListener( 'load', () => {
@@ -106,13 +108,13 @@ window.addEventListener( 'load', () => {
 
             if ( screen && screen.getTracks().length ) {
                 screen.getTracks().forEach( ( track ) => {
-                    pc[partnerName].addTrack( track, screen );//should trigger negotiationneeded event
+                    pc[partnerName].addTrack( track, screen );
                 } );
             }
 
             else if ( myStream ) {
                 myStream.getTracks().forEach( ( track ) => {
-                    pc[partnerName].addTrack( track, myStream );//should trigger negotiationneeded event
+                    pc[partnerName].addTrack( track, myStream );
                 } );
             }
 
@@ -122,7 +124,7 @@ window.addEventListener( 'load', () => {
                     myStream = stream;
 
                     stream.getTracks().forEach( ( track ) => {
-                        pc[partnerName].addTrack( track, stream );//should trigger negotiationneeded event
+                        pc[partnerName].addTrack( track, stream );
                     } );
 
                     h.setLocalStream( stream );
@@ -272,4 +274,70 @@ window.addEventListener( 'load', () => {
                 }
             }
         }
+
+        //When the video icon is clicked
+        document.getElementById( 'toggle-video' ).addEventListener( 'click', ( e ) => {
+            e.preventDefault();
+
+            let elem = document.getElementById( 'toggle-video' );
+
+            if ( myStream.getVideoTracks()[0].enabled ) {
+                e.target.classList.remove( 'fa-video' );
+                e.target.classList.add( 'fa-video-slash' );
+                elem.setAttribute( 'title', 'Show Video' );
+
+                myStream.getVideoTracks()[0].enabled = false;
+            }
+
+            else {
+                e.target.classList.remove( 'fa-video-slash' );
+                e.target.classList.add( 'fa-video' );
+                elem.setAttribute( 'title', 'Hide Video' );
+
+                myStream.getVideoTracks()[0].enabled = true;
+            }
+
+            broadcastNewTracks( myStream, 'video' );
+        } );
+
+
+        //When the mute icon is clicked
+        document.getElementById( 'toggle-mute' ).addEventListener( 'click', ( e ) => {
+            e.preventDefault();
+
+            let elem = document.getElementById( 'toggle-mute' );
+
+            if ( myStream.getAudioTracks()[0].enabled ) {
+                e.target.classList.remove( 'fa-microphone-alt' );
+                e.target.classList.add( 'fa-microphone-alt-slash' );
+                elem.setAttribute( 'title', 'Unmute' );
+
+                myStream.getAudioTracks()[0].enabled = false;
+            }
+
+            else {
+                e.target.classList.remove( 'fa-microphone-alt-slash' );
+                e.target.classList.add( 'fa-microphone-alt' );
+                elem.setAttribute( 'title', 'Mute' );
+
+                myStream.getAudioTracks()[0]enabled = true;
+            }
+
+            broadcastNewTracks( myStream, 'audio' );
+        } );
+
+
+        //When user clicks the 'Share screen' button
+        document.getElementById( 'share-screen' ).addEventListener( 'click', ( e ) => {
+            e.preventDefault();
+
+            if ( screen && screen.getVideoTracks()length && screen.getVideoTracks()[0].readyState != 'ended' ) {
+                stopSharingScreen();
+            }
+
+            else {
+                shareScreen()
+            }
+        } );
+    }
 } );
