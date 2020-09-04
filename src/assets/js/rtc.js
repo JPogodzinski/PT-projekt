@@ -102,7 +102,22 @@ window.addEventListener( 'load', () => {
         }
 
         function init( createOffer, partnerName ) {
-        }
+            }
+
+
+
+            //create offer
+            if ( createOffer ) {
+                pc[partnerName].onnegotiationneeded = async () => {
+                    let offer = await pc[partnerName].createOffer();
+
+                    await pc[partnerName].setLocalDescription( offer );
+
+                    socket.emit( 'sdp', { description: pc[partnerName].localDescription, to: partnerName, sender: socketId } );
+                };
+            }
+
+
 
         function shareScreen() {
             h.shareScreen().then( ( stream ) => {
@@ -159,5 +174,4 @@ window.addEventListener( 'load', () => {
                 }
             }
         }
-
 } );
