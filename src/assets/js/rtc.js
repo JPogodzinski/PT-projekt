@@ -94,12 +94,12 @@ window.addEventListener( 'load', () => {
         function getAndSetUserStream() {
             h.getUserFullMedia().then( ( stream ) => {
                 //save my stream
-                myStream = stream
+                myStream = stream;
 
                 h.setLocalStream( stream );
             } ).catch( ( e ) => {
-                console.error( `stream error:` );
-            } )
+                console.error( `stream error: ${ e }` );
+            } );
         }
 
         function init( createOffer, partnerName ) {
