@@ -1,5 +1,3 @@
-
-
 import h from './settings.js';
 
 window.addEventListener( 'load', () => {
@@ -320,7 +318,7 @@ window.addEventListener( 'load', () => {
                 e.target.classList.add( 'fa-microphone-alt' );
                 elem.setAttribute( 'title', 'Mute' );
 
-                myStream.getAudioTracks()[0]enabled = true;
+                myStream.getAudioTracks()[0].enabled = true;
             }
 
             broadcastNewTracks( myStream, 'audio' );
@@ -331,12 +329,12 @@ window.addEventListener( 'load', () => {
         document.getElementById( 'share-screen' ).addEventListener( 'click', ( e ) => {
             e.preventDefault();
 
-            if ( screen && screen.getVideoTracks()length && screen.getVideoTracks()[0].readyState != 'ended' ) {
+            if ( screen && screen.getVideoTracks().length && screen.getVideoTracks()[0].readyState != 'ended' ) {
                 stopSharingScreen();
             }
 
             else {
-                shareScreen()
+                shareScreen();
             }
         } );
     }
