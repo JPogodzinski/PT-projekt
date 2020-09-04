@@ -129,6 +129,18 @@ window.addEventListener( 'load', () => {
 
 
         function stopSharingScreen() {
+            //enable video toggle btn
+            h.toggleVideoBtnDisabled( false );
+
+            return new Promise( ( res, rej ) => {
+                screen.getTracks().length ? screen.getTracks().forEach( track > track.stop() ) : ''
+                res();
+            } ).then( () => {
+                h.toggleShareIcons( false );
+                broadcastNewTracks( myStream, video );
+            } ).catch( ( e ) => {
+                console.error( e );
+            } );
         }
 
 
@@ -138,7 +150,7 @@ window.addEventListener( 'load', () => {
 
             let track = type == 'audio' ? stream.getAudioTracks()[0] : stream.getVideoTracks()[0];
 
-            for (let p in pc) {
+            for ( let p in pc ) {
                 let pName = pc[p];
 
                 if ( typeof pc[pName] == 'object' ) {
