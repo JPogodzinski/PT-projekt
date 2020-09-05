@@ -28,9 +28,29 @@
                     <i class="fa fa-desktop text-white"></i>
                 </button>
             </div>    
-
 </nav>
+<div class="container-fluid" id='room-create' hidden>
+            <div class="row">
+                <div class="col-12 h2 mt-5 text-center">Utwórz pokój</div>
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col-12 text-center">
+                    <span class="form-text small text-danger" id='err-msg'></span>
+                </div>
 
+                <div class="col-12 col-md-4 offset-md-4 mb-3">
+                    <label for="room-name">Nazwa pokoju</label>
+                    <input type="text" id='room-name' class="form-control rounded-0" placeholder="Nazwa pokoju">
+                </div>
+
+                <div class="col-12 col-md-4 offset-md-4 mb-3">
+                    <button id='create-room' class="btn btn-block rounded-0 btn-success">Utwórz pokój</button>
+                </div>
+
+                <div class="col-12 col-md-4 offset-md-4 mb-3" id='room-created'></div>
+            </div>
+        </div>
 
 </body>
 </html>
